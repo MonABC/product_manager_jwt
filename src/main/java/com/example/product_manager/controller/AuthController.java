@@ -69,4 +69,14 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping("/validated/username")
+    public ResponseEntity<?> validateUsername(@RequestBody User user) {
+        if (userService.findByUserName(user.getUsername()) != null) {
+            User userFindByUsername = userService.findByUserName(user.getUsername());
+            return new ResponseEntity<>(userFindByUsername, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new User(), HttpStatus.OK);
+        }
+    }
+
 }
